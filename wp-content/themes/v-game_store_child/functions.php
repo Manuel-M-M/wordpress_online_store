@@ -36,3 +36,14 @@ function game_store_filter_fields($fields) {
 
     return $fields;
 }
+
+add_action('woocommerce_checkout_update_order_meta', 'game_store_action_save_custom_fields');
+
+// Save the new fields in database
+function game_store_action_save_custom_fields($order_id) {
+    if(!empty ($_POST['encuesta'])) {
+        // Save a new survey field in the WP database in the order of the order_id 
+        // that I receive with the value that I receive from the form.
+        update_post_meta($order_id, 'encuesta', sanitize_text_field($_POST['encuesta']));
+    }
+}
