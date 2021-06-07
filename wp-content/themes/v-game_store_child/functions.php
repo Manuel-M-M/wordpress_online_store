@@ -18,7 +18,20 @@ function game_store_filter_fields($fields) {
     $fields['billing']['new_field'] = [
         'type' => 'text',
         'label' => 'Campo nuevo',
-        'placeholder' => 'introduce tu campo nuevo'
+        'placeholder' => 'introduce tu campo nuevo',
+        'required' => true
+    ];
+
+    // Add survey field to form
+    $fields['order']['encuesta'] = [
+        'type' => 'select', 
+        'label' => '¿Como nos conociste?',
+        'placeholder' => 'Selecciona una opción',
+        'options' => [
+            'default' => 'Seleciona...',
+            'amigo' => 'a través de un amigo',
+            'internet' => 'a través de internet'
+        ]
     ];
 
     return $fields;
