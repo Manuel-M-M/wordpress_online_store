@@ -588,3 +588,11 @@ p.stars.selected a.active:before {
 .fa-cart-plus {
     margin-right: 15px;
 }
+
+.commentlist .fa-user-astronaut {
+  margin-top: 6px;
+}
+
+.commentlist .fa-user-astronaut::before {
+  font-size: 50px;
+}
