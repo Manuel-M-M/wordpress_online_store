@@ -43,7 +43,12 @@ add_action('woocommerce_checkout_update_order_meta', 'game_store_action_save_cus
 function game_store_action_save_custom_fields($order_id) {
     if(!empty ($_POST['encuesta'])) {
         // Save a new survey field in the WP database in the order of the order_id 
-        // that I receive with the value that I receive from the form.
+        // that I receive with the value that I receive from the checkout form.
         update_post_meta($order_id, 'encuesta', sanitize_text_field($_POST['encuesta']));
+    }
+
+    if(!empty($_POST['campo_nuevo'])) {
+        // Save in db the value of the new field that I have added to the checkout form.
+        update_post_meta(order_id, 'campo_nuevo', sanitize_text_field($_POST['campo_nuevo']));
     }
 }
