@@ -52,3 +52,28 @@ function game_store_action_save_custom_fields($order_id) {
         update_post_meta(order_id, 'campo_nuevo', sanitize_text_field($_POST['campo_nuevo']));
     }
 }
+
+add_action('manage_edit-shop_order_columns', 'game_store_action_add_column_to_admin_orders');
+
+function game_store_action_add_column_to_admin_orders($columnas) {
+    $columnas['encuesta'] = 'encuesta';
+    $columnas['campo_nuevo'] = 'campo_nuevo';
+
+    return $columnas;
+}
+
+add_action('manage_shop_order_posts_custom_columns', 'game_store_action_add_column_value_to_custom_columns');
+
+function game_store_action_add_column_value_to_custom_columns($columnas) {
+    global $post;
+
+    // I verify the column that it goes through 
+    // and if it is the survey column I enter a value that is stored in the database.
+    if($columnas === 'encuesta') {
+        $encuesta_value = get_post_meta($post->ID, 'encuesta');
+        if($encuesta_value) {
+            echo $encuesta_value;
+        }
+    }
+}
+
