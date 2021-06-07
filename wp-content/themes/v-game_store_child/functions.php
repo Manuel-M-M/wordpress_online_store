@@ -22,7 +22,7 @@ function game_store_filter_fields($fields) {
         'required' => true
     ];
 
-    // Add survey field to form
+    // Add encuesta field to form
     $fields['order']['encuesta'] = [
         'type' => 'select', 
         'label' => '¿Como nos conociste?',
@@ -42,7 +42,7 @@ add_action('woocommerce_checkout_update_order_meta', 'game_store_action_save_cus
 // Save the new fields in database
 function game_store_action_save_custom_fields($order_id) {
     if(!empty ($_POST['encuesta'])) {
-        // Save a new survey field in the WP database in the order of the order_id 
+        // Save a new encuesta field in the WP database in the order of the order_id 
         // that I receive with the value that I receive from the checkout form.
         update_post_meta($order_id, 'encuesta', sanitize_text_field($_POST['encuesta']));
     }
@@ -68,11 +68,20 @@ function game_store_action_add_column_value_to_custom_columns($columnas) {
     global $post;
 
     // I verify the column that it goes through 
-    // and if it is the survey column I enter a value that is stored in the database.
+    // and if it is the encuesta column I enter a value that is stored in the database.
     if($columnas === 'encuesta') {
-        $encuesta_value = get_post_meta($post->ID, 'encuesta');
+        $encuesta_value = get_post_meta($post->ID, 'encuesta', true);
         if($encuesta_value) {
             echo $encuesta_value;
+        }
+    }
+
+    // I verify the column that it goes through 
+    // and if it is the campo_nuevo column I enter a value that is stored in the database.
+    if($columnas === 'campo_nuevo') {
+        $campo_nuevo_value = get_post_meta($post->ID, 'campo_nuevo', true);
+        if($campo_nuevo_value) {
+            echo $campo_nuevo_value;
         }
     }
 }
